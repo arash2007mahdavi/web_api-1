@@ -16,7 +16,9 @@ func InitServer() {
 	v1 := r.Group("/api/v1/")
 	{
 		health := v1.Group("/health")
+		test_router := v1.Group("/test")
 		routers.Health(health)
+		routers.TestRouter(test_router)
 	}
 
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))

@@ -9,33 +9,33 @@ import (
 )
 
 type Config struct {
-	Server ServerConfig
+	Server   ServerConfig
 	Postgres PostgresConfig
-	Redis RedisConfig
+	Redis    RedisConfig
 }
 
 type ServerConfig struct {
-	Port string
+	Port    string
 	RunMode string
 }
 
 type PostgresConfig struct {
-	Host string
-	Port string
-	User string
+	Host     string
+	Port     string
+	User     string
 	Password string
-	DbName string
-	SSLMode bool
+	DbName   string
+	SSLMode  bool
 }
 
 type RedisConfig struct {
-	Host string
-	Port string
-	Password string
-	Db string
+	Host               string
+	Port               string
+	Password           string
+	Db                 string
 	MinIdleConnections int
-	PoolSize int
-	PoolTimeout int
+	PoolSize           int
+	PoolTimeout        int
 }
 
 func GetConfig() *Config {

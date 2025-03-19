@@ -1,5 +1,5 @@
 Server:
-  Port: 4030
+  Port: 5555
   RunMode: debug
 logger:
   filePath: ../logs/logs.log
