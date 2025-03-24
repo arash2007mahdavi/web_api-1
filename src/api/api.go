@@ -3,9 +3,9 @@ package api
 import (
 	"fmt"
 
-	"github.com/arash2007mahdavi/golang-web-api-1/api/routers"
-	"github.com/arash2007mahdavi/golang-web-api-1/api/validations"
-	"github.com/arash2007mahdavi/golang-web-api-1/config"
+	"github.com/arash2007mahdavi/web-api-1/api/routers"
+	"github.com/arash2007mahdavi/web-api-1/api/validations"
+	"github.com/arash2007mahdavi/web-api-1/config"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
