@@ -1,8 +1,10 @@
 package middlewares
 
 import (
+	"fmt"
 	"net/http"
 
+	"github.com/arash2007mahdavi/web-api-1/api/helper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,8 +14,5 @@ func ApiCheck(ctx *gin.Context) {
 		ctx.Next()
 		return
 	}
-	ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-		"status": http.StatusBadRequest,
-		"message": "wrong api-key",
-	})
+	ctx.AbortWithStatusJSON(http.StatusBadRequest, helper.GenerateBaseResponseWithError(false, fmt.Errorf("wrong api-key")))
 }

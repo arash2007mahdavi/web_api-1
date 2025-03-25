@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/arash2007mahdavi/web-api-1/api/helper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,12 +16,12 @@ func NewHealthHandler() *HealthHandler {
 }
 
 func (h *HealthHandler) Health(c *gin.Context) {
-	c.JSON(http.StatusOK, "Working!...")
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse("working!...", true))
 }
 
 func (h *HealthHandler) HealthById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	c.JSON(http.StatusOK, fmt.Sprintf("Working with %v!...", id))
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(fmt.Sprintf("Working with %v!...", id), true))
 }
 
 type User struct {
@@ -34,14 +35,8 @@ func (h *HealthHandler) UserAdd(c *gin.Context) {
 	user := User{}
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,  gin.H{
-			"status": http.StatusBadRequest,
-			"message": err.Error(),
-		})
+		c.AbortWithStatusJSON(http.StatusBadRequest,  helper.GenerateBaseResponseWithValidationError(false, err))
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"message": user,
-	})
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(user, true))
 }

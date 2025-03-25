@@ -10,5 +10,5 @@ func Health(r *gin.RouterGroup) {
 	handler := handlers.NewHealthHandler()
 	r.GET("/", middlewares.ApiCheck, handler.Health)
 	r.POST("/:id", middlewares.ApiCheck, handler.HealthById)
-	r.POST("/user/add", handler.UserAdd)
+	r.POST("/user/add", middlewares.ApiCheck, handler.UserAdd)
 }
