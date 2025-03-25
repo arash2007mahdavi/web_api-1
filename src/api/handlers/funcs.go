@@ -23,32 +23,25 @@ func (h *HealthHandler) HealthById(c *gin.Context) {
 	c.JSON(http.StatusOK, fmt.Sprintf("Working with %v!...", id))
 }
 
-func (h *HealthHandler) HeaderBinder1(c *gin.Context) {
-	userid := c.GetHeader("Userid")
-	c.JSON(200, gin.H{
-		"result": "HeaderBinder1",
-		"userid": userid,
-	})
-}
-
-type header22 struct {
-	Userid string `json:"user_id" binding:"required,email"`
+type User struct {
+	Userid string `json:"user_id" binding:"required,id"`
 	Browser string `json:"browser" binding:"required,alpha"`
 	MobileNum string `json:"number" binding:"required,mobile"`
 	Password string `json:"password" binding:"required,password"`
 }
 
-func (h *HealthHandler) HeaderBinder2(c *gin.Context) {
-	hea := header22{}
-	err := c.ShouldBindJSON(&hea)
+func (h *HealthHandler) UserAdd(c *gin.Context) {
+	user := User{}
+	err := c.ShouldBindJSON(&user)
 	if err != nil {
-		c.AbortWithStatusJSON(403,  gin.H{
-			"status": err.Error(),
+		c.AbortWithStatusJSON(http.StatusBadRequest,  gin.H{
+			"status": http.StatusBadRequest,
+			"message": err.Error(),
 		})
 		return
 	}
-	c.JSON(200, gin.H{
-		"result": "HeaderBinder1",
-		"header": hea,
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"message": user,
 	})
 }

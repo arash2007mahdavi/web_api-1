@@ -25,6 +25,11 @@ func InitServer() {
 		val2.RegisterValidation("password", validations.PasswoordValidator, true)
 	}
 
+	val3, ok3 := binding.Validator.Engine().(*validator.Validate)
+	if ok3 {
+		val3.RegisterValidation("id", validations.IdValidator, true)
+	}
+
 	r.Use(gin.Logger(), gin.Recovery())
 
 	v1 := r.Group("/api/v1/")
