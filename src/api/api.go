@@ -6,9 +6,12 @@ import (
 	"github.com/arash2007mahdavi/web-api-1/api/routers"
 	"github.com/arash2007mahdavi/web-api-1/api/validations"
 	"github.com/arash2007mahdavi/web-api-1/config"
+	"github.com/arash2007mahdavi/web-api-1/docs"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitServer(cfg *config.Config) {
@@ -17,16 +20,8 @@ func InitServer(cfg *config.Config) {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		val.RegisterValidation("mobile", validations.IranainMobileNumberValidator, true)
-	}
-
-	val2, ok2 := binding.Validator.Engine().(*validator.Validate)
-	if ok2 {
-		val2.RegisterValidation("password", validations.PasswoordValidator, true)
-	}
-
-	val3, ok3 := binding.Validator.Engine().(*validator.Validate)
-	if ok3 {
-		val3.RegisterValidation("id", validations.IdValidator, true)
+		val.RegisterValidation("password", validations.PasswoordValidator, true)
+		val.RegisterValidation("id", validations.IdValidator, true)
 	}
 
 	r.Use(gin.Logger(), gin.Recovery())
@@ -37,5 +32,17 @@ func InitServer(cfg *config.Config) {
 		routers.Health(health)
 	}
 
+	RegesterSwagger(r, cfg)
+
 	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+}
+
+func RegesterSwagger(r *gin.Engine, cfg *config.Config) {
+	docs.SwaggerInfo.Title = "golang web api"
+	docs.SwaggerInfo.Description = "golang web api"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Schemes = []string{"http"}
+	docs.SwaggerInfo.BasePath = "/api"
+	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%s", cfg.Server.Port)
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

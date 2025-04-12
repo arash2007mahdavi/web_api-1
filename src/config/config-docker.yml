@@ -8,12 +8,15 @@ logger:
 cors:
   allowOrigins: "*"
 postgres:
-  host: postgres_container
+  host: postgres-container
   port: 5432
   user: postgres
   password: admin
   dbName: car_sale_db
-  sslMode: false
+  sslMode: disable
+  maxIdleConns: 5
+  maxOpenConns: 100
+  connMaxLifetime: 5
 redis:
   host: redis_container
   port: 6379

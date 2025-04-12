@@ -8,7 +8,7 @@ import (
 
 func Health(r *gin.RouterGroup) {
 	handler := handlers.NewHealthHandler()
-	r.GET("/", middlewares.ApiCheck, handler.Health)
+	r.GET("/", handler.Health)
 	r.POST("/:id", middlewares.ApiCheck, handler.HealthById)
 	r.POST("/user/add", middlewares.ApiCheck, handler.UserAdd)
 }

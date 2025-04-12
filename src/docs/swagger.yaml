@@ -1,0 +1,42 @@
+definitions:
+  helper.BaseResponse:
+    properties:
+      error: {}
+      result: {}
+      success:
+        type: boolean
+      validationError:
+        items:
+          $ref: '#/definitions/validations.ValidationError'
+        type: array
+    type: object
+  validations.ValidationError:
+    properties:
+      message:
+        type: string
+      property:
+        type: string
+      tag:
+        type: string
+      value:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/health/:
+    get:
+      consumes:
+      - application/json
+      description: Health Check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/helper.BaseResponse'
+      summary: Health Check
+      tags:
+      - health
+swagger: "2.0"

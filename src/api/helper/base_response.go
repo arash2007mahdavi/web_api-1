@@ -3,10 +3,10 @@ package helper
 import "github.com/arash2007mahdavi/web-api-1/api/validations"
 
 type BaseResponse struct {
-	Result          any                            `json:"result"`
-	Success         bool                           `json:"success"`
-	ValidationError *[]validations.ValidationError `json:"validationError"`
-	Error           any                            `json:"error"`
+	Result          any                            `json:"result,omitempty"`
+	Success         bool                           `json:"success,omitempty"`
+	ValidationError *[]validations.ValidationError `json:"validationError,omitempty"`
+	Error           any                            `json:"error,omitempty"`
 }
 
 func GenerateBaseResponse(result any, success bool) *BaseResponse {
