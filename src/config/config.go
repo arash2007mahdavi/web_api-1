@@ -34,7 +34,7 @@ type PostgresConfig struct {
 	User            string
 	Password        string
 	DbName          string
-	SSLMode         string
+	Sslmode         string
 	MaxIdleConns    int
 	MaxOpenConns    int
 	ConnMaxLifetime time.Duration

@@ -38,6 +38,7 @@ func (l *zeroLogger) getLogLevel() zerolog.Level {
 
 func (l *zeroLogger) Init() {
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
+	zerolog.SetGlobalLevel(l.getLogLevel())
 
 	file, err := os.OpenFile(l.cfg.Logger.FilePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 	if err != nil {
@@ -50,9 +51,7 @@ func (l *zeroLogger) Init() {
 	Str("AppName", "MyApp").
 	Str("LoggerName", "Zerolog").
 	Logger()
-
-	zerolog.SetGlobalLevel(l.getLogLevel())
-
+	
 	l.logger = &logger
 }
 

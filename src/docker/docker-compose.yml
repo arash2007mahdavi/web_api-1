@@ -1,22 +1,20 @@
 version: '3.9'
 
 services:
-  postgres_container:
-    hostname: postgres_container
-    container_name: postgres_container
+  postgres:
+    container_name: postgres
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: car_sale_db
-      PGDATA: /data/postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
       - webapi_network
-    restart: unless-stopped
+    restart: always
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container
@@ -31,7 +29,7 @@ services:
       - webapi_network
     restart: unless-stopped
     depends_on:
-    - postgres_container
+    - postgres
   redis:
     image: redis:latest
     container_name: redis_container

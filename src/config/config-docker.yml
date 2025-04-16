@@ -1,30 +1,31 @@
 Server:
   Port: 5555
   RunMode: debug
-logger:
-  filePath: ../logs/logs.log
+Logger:
+  FilePath: ../logs/logs.log
   Encoding: json
-  level: debug
-cors:
-  allowOrigins: "*"
-postgres:
-  host: postgres-container
-  port: 5432
-  user: postgres
-  password: admin
-  dbName: car_sale_db
-  sslMode: disable
-  maxIdleConns: 5
-  maxOpenConns: 100
-  connMaxLifetime: 5
-redis:
-  host: redis_container
-  port: 6379
-  password: password
-  db: 0
-  dialTimeout: 5
-  readTimeout: 5
-  writeTimeout: 5
-  poolSize: 10
-  poolTimeout: 15
+  Level: debug
+  Logger: zaplogger
+Cors:
+  AllowOrigins: "*"
+Postgres:
+  Host: localhost
+  Port: 5432
+  User: postgres
+  Password: postgres
+  DbName: test
+  SslMode: disable
+  MaxIdleConns: 5
+  MaxOpenConns: 100
+  ConnMaxLifetime: 5
+Redis:
+  Host: redis_container
+  Port: 6379
+  Password: password
+  Db: 0
+  DialTimeout: 5
+  ReadTimeout: 5
+  WriteTimeout: 5
+  PoolSize: 10
+  PoolTimeout: 15
   IdleCheckFrequency: 500

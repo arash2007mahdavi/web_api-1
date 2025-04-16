@@ -5,6 +5,7 @@ import (
 	"github.com/arash2007mahdavi/web-api-1/config"
 	"github.com/arash2007mahdavi/web-api-1/data/cache"
 	"github.com/arash2007mahdavi/web-api-1/data/database"
+	"github.com/arash2007mahdavi/web-api-1/data/database/migrations"
 	"github.com/arash2007mahdavi/web-api-1/pkg/logging"
 )
 
@@ -18,8 +19,10 @@ func main() {
 	err := database.InitDb(cfg)
 	if err != nil {
 		logger.Warn(logging.Postgres, logging.Startup, err.Error(), nil)
+		panic(err)
 	}
 	defer database.CloseDb()
 
+	migrations.Up_1()
 	api.InitServer(cfg)
 }

@@ -13,11 +13,12 @@ import (
 var dbClient *gorm.DB
 
 func InitDb(cfg *config.Config) error {
-	cnn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s TimeZone=Asia/Tehran",
-		cfg.Postgres.Host, cfg.Postgres.Port, cfg.Postgres.User, cfg.Postgres.Password,
-		cfg.Postgres.DbName, cfg.Postgres.SSLMode)
+	var err error
+	cnn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%v sslmode=%s TimeZone=Asia/Tehran",
+		cfg.Postgres.Host, cfg.Postgres.User, cfg.Postgres.Password,
+		cfg.Postgres.DbName, cfg.Postgres.Port, cfg.Postgres.Sslmode)
 
-	dbClient, err := gorm.Open(postgres.Open(cnn), &gorm.Config{})
+	dbClient, err = gorm.Open(postgres.Open(cnn), &gorm.Config{})
 	if err != nil {
 		return err
 	}
@@ -41,6 +42,14 @@ func GetDb() *gorm.DB {
 }
 
 func CloseDb() {
-	con, _ := dbClient.DB()
-	con.Close()
+	if dbClient == nil {
+        fmt.Println("Database connection is nil, nothing to close")
+        return
+    }
+    con, err := dbClient.DB()
+    if err != nil {
+        fmt.Println("Error getting database instance:", err)
+        return
+    }
+    con.Close()
 }
